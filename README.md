@@ -1,7 +1,7 @@
 Blackjack Web App
 ==================
 
-Blackjack web app built using Sinatra and styled with the [Flatly Bootswatch](http://bootswatch.com/flatly/).
+Blackjack web app built using [Sinatra](http://www.sinatrarb.com/) and styled with the [Flatly Bootswatch](http://bootswatch.com/flatly/).
 
 ### Features ###
 * Set your bet amount
