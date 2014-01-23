@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Zac's Blackjack Web App!</title>
+    <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/application.css">
+  </head>
+  <body>
+
+    <div class="navbar navbar-default">
+      <div class="navbar-inner">
+        <div class="container">
+            <ul class="nav navbar-nav">
+              <li><a href="/new_game">New Game</a></li>
+              <%if session[:in_play]%>
+                <li><a href="/game">Continue Game</a></li>
+              <%end%>
+            </ul>
+        </div>
+      </div>
+    </div>
+
+  <div class="container">
+    <%if @error %>
+      <div class="alert alert-error"><%=@error%></div>
+    <% end %>
+      <%= yield %>
+  </div>
+  </body>
+</html>

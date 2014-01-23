@@ -1,0 +1,6 @@
+<h4><%="Hello #{session[:player_name]}! And welcome to Blackjack"%></h4>
+<%= "Let's get started!" %>
+<br/><br/>
+<form action="/new_game" method="POST">
+	<input type="submit" value="Start Game" class="btn btn-default">
+</form>

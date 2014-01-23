@@ -1,0 +1,26 @@
+h1#title {
+  margin-bottom: 30px;
+}
+
+div#dealer p#dealer_total {
+  margin-top: 10px;
+}
+
+div#player p#stay_message {
+  margin-top: 10px;
+}
+
+p#action_buttons {
+  margin-top: 5px
+}
+
+form#hit {
+  float: left;
+  margin-right: 10px;
+}
+
+form#stay {
+  float: left;
+}
+
+

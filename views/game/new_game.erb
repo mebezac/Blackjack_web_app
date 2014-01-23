@@ -1,0 +1,12 @@
+<h3>So <%="#{session[:player_name]}"%>, how much money would you like to have to play with? <br/>You can put in up to $5000</h3>
+You are starting a new game, so you will be deleting any progress you've made and starting over.
+
+<form action="/bet" method="POST">
+  <div class="input-group-215">
+    <span class="input-group-addon">$</span>
+      <input type="number" min="1" max="5000" class="form-control" name="player_money">
+        <span class="input-group-btn">
+          <input class="btn btn-default" type="submit">
+        </span>
+  </div>
+</form>
