@@ -30,7 +30,13 @@ post '/bet' do
   session[:player_money] = params[:player_money]
   session[:starting_money] = params[:player_money]
   session[:in_play] = false
-  redirect '/bet'
+
+  if session[:player_money].to_i > 5000 || session[:player_money].to_i < 1
+    @error = "You have to have between $1 and $5000"
+    erb :"game/new_game"
+  else
+    redirect '/bet'
+  end
 end
 
 get '/bet' do
@@ -57,7 +63,14 @@ post '/game' do
   session[:player_hand] += deal(session[:deck], 2)
   session[:dealer_hand] += deal(session[:deck], 2)
   session[:winner] = ""
-  redirect '/game'
+
+  if session[:bet].to_i > session[:player_money].to_i || session[:bet].to_i < 1
+    @error = "You have to bet between $1 and $#{session[:player_money]}"
+    erb :"game/bet"
+  else
+    erb :game
+  end
+  
 end
 
 get '/game' do
