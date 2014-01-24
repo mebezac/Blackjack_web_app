@@ -29,4 +29,18 @@ $(document).ready(function() {
     });
     return false;
   })
+
+  $(document).on('click', '#bet-button', function() {
+    $.ajax({
+      type: 'POST',
+      url: '/game/page/bet'
+      data: {
+        bet: $(this).serialize();
+      }
+    }).done(function(msg) {
+       $('#game').replaceWith(msg);
+    });
+    return false;
+  })
+
 })
