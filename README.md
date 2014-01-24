@@ -10,4 +10,4 @@ Blackjack web app built using [Sinatra](http://www.sinatrarb.com/) and styled wi
 * Enter new bet from game page
 * Scoreboard
 * Ability to start new game (new money amount)
-* AJAX
+* AJAX (And bet)
