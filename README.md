@@ -1,6 +1,8 @@
 Blackjack Web App
 ==================
 
+Play here - http://zacjack.herokuapp.com
+
 Blackjack web app built using [Sinatra](http://www.sinatrarb.com/) and styled with the [Flatly Bootswatch](http://bootswatch.com/flatly/).
 
 ### Features ###
