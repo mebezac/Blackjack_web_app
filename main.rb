@@ -69,8 +69,7 @@ post '/game' do
     erb :"game/bet"
   else
     erb :game
-  end
-  
+  end 
 end
 
 get '/game' do
@@ -79,14 +78,16 @@ end
 
 post '/game/player/hit' do
   player_hit
+  erb :game, layout: false
 end
 
 post '/game/player/stay' do
   session[:show_hit_or_stay] = false
   session[:show_dealer_options] = true
-  erb :game
+  erb :game, layout: false
 end
 
 post '/game/dealer/hit' do
   dealer_hit
+  erb :game, layout: false
 end

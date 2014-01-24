@@ -59,7 +59,6 @@ helpers do
       win_or_lose
     else
       session[:show_hit_or_stay] = true
-      erb :game
     end
   end
 
@@ -84,7 +83,6 @@ helpers do
       compare
     elsif hand_value(session[:dealer_hand]) < 17
       @show_dealer_options = true
-      erb :game
     end
     
   end
@@ -127,7 +125,6 @@ helpers do
     end
     session[:bet] = 0
     session[:round_over] = true
-    erb :game
   end
 
 end

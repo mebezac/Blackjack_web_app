@@ -1,147 +1,148 @@
-<div class="pull-right sbpr">
-  <div class="panel panel-primary scoreboard">
-    <div class="panel-heading sbhead">
-      <h2 class="scoreboard-title"><%= "#{session[:player_name]}'s Scoreboard!" %></h2>
+<div id='game'>
+  <div class="pull-right sbpr">
+    <div class="panel panel-primary scoreboard">
+      <div class="panel-heading sbhead">
+        <h2 class="scoreboard-title"><%= "#{session[:player_name]}'s Scoreboard!" %></h2>
+        
+      </div>
       
+      <div class="panel-body scoreboard">
+        <div class="alert alert-success sbalert">
+            <h4>Starting Amount:</h4> <%= "$#{session[:starting_money]}" %>
+        </div>
+        <div class="alert alert-warning sbalert">
+            <h4>Current Amount:</h4> <%= "$#{session[:player_money]}" %>
+        </div>
+
+        <%if session[:starting_money].to_i > session[:player_money].to_i%>
+          <div class="alert alert-danger sbalert">
+            <h4>You are down:</h4> <%= "$#{session[:starting_money].to_i - session[:player_money].to_i}" %>
+          </div>
+        <%else%>
+          <div class="alert alert-info sbalert">
+            <h4>You are Up:</h4> <%= "$#{session[:player_money].to_i - session[:starting_money].to_i}" %>
+          </div>
+        <%end%>
+      </div>
+    </div>
+  </div>
+
+  <h3>You are playing Blackjack!</h3>
+
+  <%= if session[:bet].to_i > 0
+
+    "<h4>You bet $#{session[:bet]}. If you win you will have $#{session[:player_money].to_i + session[:bet].to_i}. If you lose, you will have $#{session[:player_money].to_i - session[:bet].to_i}</h4>"
+  end %>
+
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title"><%= "#{session[:player_name]}'s cards. Value: #{hand_value(session[:player_hand])} #{@message}" %></h3>
+
+      <%if session[:show_hit_or_stay]%>
+        <div class="pull-left">
+          <%if hand_value(session[:player_hand]) == 21 %>
+            <% session[:winner] = 'player' %>
+            <% session[:reason] = "You hit Blackjack!" %>
+            <%if not session[:round_over]%>
+              <%win_or_lose%>
+              <%redirect '/game' %>
+            <%end%>
+          <%else%>
+            <form id="player-hit" class="hit" action="/game/player/hit" method="POST">
+              <input type="submit" value="Hit" class="btn btn-info">
+            </form>
+            <form id="player-stay" class="stay" action="/game/player/stay" method="POST">
+              <input type="submit" value="Stay" class="btn btn-info">
+            </form>
+          <%end%>
+        </div>
+        <div class="clearfix"></div>
+      <%end%>
+
+      <%if session[:win_lose_message]%>
+        <%= "#{session[:win_lose_message]}" %>
+      <%end%>
+      <%if session[:round_over]%>
+        <div class="pull-right-up">
+        <%if session[:player_money] > 0%>
+          <%= "Place your bet to play again." %>
+          <form id="game-page-bet" action="/game" method="POST">
+            <div class="input-group-215">
+              <span class="input-group-addon">$</span>
+                <input type="number" min="1" max="<%=session[:player_money]%>" class="form-control" name="bet">
+              <span class="input-group-btn">
+                <input id="bet-button"class="btn btn-default" type="submit" value="bet">
+              </span>
+            </div>
+          </form>
+        <%else%>
+          You are all out money. You can start over <a class="game-link" href="/new_game">here</a>
+        <%end%>
+        </div>
+      <%end%>
     </div>
     
-    <div class="panel-body scoreboard">
-      <div class="alert alert-success sbalert">
-          <h4>Starting Amount:</h4> <%= "$#{session[:starting_money]}" %>
-      </div>
-      <div class="alert alert-warning sbalert">
-          <h4>Current Amount:</h4> <%= "$#{session[:player_money]}" %>
-      </div>
-
-      <%if session[:starting_money].to_i > session[:player_money].to_i%>
-        <div class="alert alert-danger sbalert">
-          <h4>You are down:</h4> <%= "$#{session[:starting_money].to_i - session[:player_money].to_i}" %>
-        </div>
-      <%else%>
-        <div class="alert alert-info sbalert">
-          <h4>You are Up:</h4> <%= "$#{session[:player_money].to_i - session[:starting_money].to_i}" %>
-        </div>
-      <%end%>
-    </div>
-  </div>
-</div>
-
-<h3>You are playing Blackjack!</h3>
-
-<%= if session[:bet].to_i > 0
-
-  "<h4>You bet $#{session[:bet]}. If you win you will have $#{session[:player_money].to_i + session[:bet].to_i}. If you lose, you will have $#{session[:player_money].to_i - session[:bet].to_i}</h4>"
-end %>
-
-<div class="panel panel-info">
-  <div class="panel-heading">
-    <h3 class="panel-title"><%= "#{session[:player_name]}'s cards. Value: #{hand_value(session[:player_hand])} #{@message}" %></h3>
-
-    <%if session[:show_hit_or_stay]%>
-      <div class="pull-left">
-        <%if hand_value(session[:player_hand]) == 21 %>
-          <% session[:winner] = 'player' %>
-          <% session[:reason] = "You hit Blackjack!" %>
-          <%if not session[:round_over]%>
-            <%win_or_lose%>
-            <%redirect '/game' %>
-          <%end%>
-        <%else%>
-          <form id="hit" action="/game/player/hit" method="POST">
-            <input type="submit" value="Hit" class="btn btn-info">
-          </form>
-          <form id="stay" action="/game/player/stay" method="POST">
-            <input type="submit" value="Stay" class="btn btn-info">
-          </form>
-        <%end%>
-      </div>
-      <div class="clearfix"></div>
-    <%end%>
-
-    <%if session[:win_lose_message]%>
-      <%= "#{session[:win_lose_message]}" %>
-    <%end%>
-    <%if session[:round_over]%>
-      <div class="pull-right-up">
-      <%if session[:player_money] > 0%>
-        <%= "Place your bet to play again." %>
-        <form action="/game" method="POST">
-          <div class="input-group-215">
-            <span class="input-group-addon">$</span>
-              <input type="number" min="1" max="<%=session[:player_money]%>" class="form-control" name="bet">
-            <span class="input-group-btn">
-              <input class="btn btn-default" type="submit" value="bet">
-            </span>
-          </div>
-        </form>
-      <%else%>
-        You are all out money. You can start over <a class="game-link" href="/new_game">here</a>
-      <%end%>
-      </div>
-    <%end%>
-  </div>
-  
-  <div class="panel-body">
-    <% session[:player_hand].each do |card| %>
-      <%= card_image(card) %>
-    <% end %>
-  </div>
-</div>
-
-<br>
-<div class="panel panel-danger">
-  <div class="panel-heading">
-    <h3 class="panel-title">Dealer's Cards</h3>
-
-    <%if session[:show_dealer_options]%>
-      
-      <div class="pull-left">
-        <%if hand_value(session[:dealer_hand]) < 17%>
-          <form id="hit" action="/game/dealer/hit" method="POST">
-            <input type="submit" value="The Dealer has <%="#{hand_value(session[:dealer_hand])}"%>, click to see the next card." class="btn btn-danger">
-          </form>
-        <%elsif hand_value(session[:dealer_hand]) == 21%>
-          The Dealer hit blackjack!
-          <% session[:winner] = 'dealer' %>
-          <% session[:reason] = "The Dealer hit Blackjack" %>
-          <%if not session[:round_over]%>
-            <%win_or_lose%>
-            <%redirect '/game' %>
-          <%end%>
-        <%elsif hand_value(session[:dealer_hand]) >= 17 %>
-          The Dealer stays
-          <%if not session[:round_over]%>
-            <%compare%>
-            <%redirect '/game' %>
-          <%end%>
-        <%end%>
-      </div>
-        <div class="clearfix"></div>
-    <%end%>
-
-  </div>
-
-  <%if session[:show_dealer_options] || session[:round_over] %>
     <div class="panel-body">
-      <% session[:dealer_hand].each do |card| %>
+      <% session[:player_hand].each do |card| %>
         <%= card_image(card) %>
       <% end %>
     </div>
+  </div>
 
-  <%else%>
+  <br>
+  <div class="panel panel-danger">
+    <div class="panel-heading">
+      <h3 class="panel-title">Dealer's Cards</h3>
 
-    <div class="panel-body">
-      <% session[:dealer_hand].each_with_index do |card, i| %>
-        <% if i == 0 %>
-          <img class ="card" src="/images/cards/cover.jpg">
-        <% else %>
+      <%if session[:show_dealer_options]%>
+        
+        <div class="pull-left">
+          <%if hand_value(session[:dealer_hand]) < 17%>
+            <form id="dealer-hit" class="hit" action="/game/dealer/hit" method="POST">
+              <input type="submit" value="The Dealer has <%="#{hand_value(session[:dealer_hand])}"%>, click to see the next card." class="btn btn-danger">
+            </form>
+          <%elsif hand_value(session[:dealer_hand]) == 21%>
+            The Dealer hit blackjack!
+            <% session[:winner] = 'dealer' %>
+            <% session[:reason] = "The Dealer hit Blackjack" %>
+            <%if not session[:round_over]%>
+              <%win_or_lose%>
+              <%redirect '/game' %>
+            <%end%>
+          <%elsif hand_value(session[:dealer_hand]) >= 17 %>
+            The Dealer stays
+            <%if not session[:round_over]%>
+              <%compare%>
+              <%redirect '/game' %>
+            <%end%>
+          <%end%>
+        </div>
+          <div class="clearfix"></div>
+      <%end%>
+
+    </div>
+
+    <%if session[:show_dealer_options] || session[:round_over] %>
+      <div class="panel-body">
+        <% session[:dealer_hand].each do |card| %>
           <%= card_image(card) %>
         <% end %>
-      <% end %>
-    </div>  
+      </div>
 
-  <%end%>
+    <%else%>
+
+      <div class="panel-body">
+        <% session[:dealer_hand].each_with_index do |card, i| %>
+          <% if i == 0 %>
+            <img class ="card" src="/images/cards/cover.jpg">
+          <% else %>
+            <%= card_image(card) %>
+          <% end %>
+        <% end %>
+      </div>  
+
+    <%end%>
+  </div>
+
+  <br><br>
 </div>
-
-<br><br>
-
