@@ -2,25 +2,80 @@ h1#title {
   margin-bottom: 30px;
 }
 
-div#dealer p#dealer_total {
-  margin-top: 10px;
-}
-
-div#player p#stay_message {
-  margin-top: 10px;
-}
-
-p#action_buttons {
-  margin-top: 5px
-}
-
-form#hit {
+form.hit {
   float: left;
   margin-right: 10px;
 }
 
-form#stay {
+form.stay {
   float: left;
 }
 
+div.input-group-215 {
+  position: relative;
+  display: table;
+  border-collapse: separate;
+  width: 215px;
+}
 
+img.card {
+  padding:1px;
+  border:thin solid black;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.panel {
+  width: 600px;
+  height: 250px;
+}
+
+.panel-heading {
+  height: 82px;
+}
+
+.navbar-default {
+margin-bottom: 0px;
+}
+
+.pull-right-up {
+float: right!important;
+margin-top: -22px;
+}
+
+.game-link {
+  color: white;
+}
+
+.winmsg {
+  width: 315px;
+}
+
+.scoreboard {
+  width: 250px;
+  padding: 0px;
+  border-color: transparent;
+  border-radius: 4px;
+}
+
+.sbhead {
+  border-radius: 4px;
+}
+.sbalert {
+  padding: 15px;
+  margin-bottom: 0px;
+  width: 100%;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.sbpr {
+  margin-top: 75px;
+  display: inline;
+  margin-right: 200px;
+}
+
+.scoreboard-title {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
