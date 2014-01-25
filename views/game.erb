@@ -45,7 +45,7 @@
             <% session[:reason] = "You hit Blackjack!" %>
             <%if not session[:round_over]%>
               <%win_or_lose%>
-              <%redirect '/game' %>
+              <%redirect '/game/' %>
             <%end%>
           <%else%>
             <form id="player-hit" class="hit" action="/game/player/hit" method="POST">
@@ -66,12 +66,12 @@
         <div class="pull-right-up">
         <%if session[:player_money] > 0%>
           <%= "Place your bet to play again." %>
-          <form id="game-page-bet" action="/game" method="POST">
+          <form id="game-page-bet" action="/game/page/bets" method="POST">
             <div class="input-group-215">
               <span class="input-group-addon">$</span>
-                <input type="number" min="1" max="<%=session[:player_money]%>" class="form-control" name="bet">
+                <input id="bet-amount" type="number" min="1" max="<%=session[:player_money]%>" class="form-control" name="bet">
               <span class="input-group-btn">
-                <input id="bet-button"class="btn btn-default" type="submit" value="bet">
+                <input id="bet-button" class="btn btn-default" type="submit" value="bet">
               </span>
             </div>
           </form>
@@ -107,13 +107,13 @@
             <% session[:reason] = "The Dealer hit Blackjack" %>
             <%if not session[:round_over]%>
               <%win_or_lose%>
-              <%redirect '/game' %>
+              <%redirect '/game/' %>
             <%end%>
           <%elsif hand_value(session[:dealer_hand]) >= 17 %>
             The Dealer stays
             <%if not session[:round_over]%>
               <%compare%>
-              <%redirect '/game' %>
+              <%redirect '/game/' %>
             <%end%>
           <%end%>
         </div>

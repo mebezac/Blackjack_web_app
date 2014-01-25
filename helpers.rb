@@ -7,6 +7,14 @@ helpers do
     end
   end
 
+  def if_user_ajax(erb_name)
+    if session[:player_name]
+      erb :"#{erb_name}", layout: false
+    else
+      redirect '/new_player'
+    end
+  end
+
   def deck_builder
       suits = ["Clubs", "Spades", "Diamonds", "Hearts"]
       cards = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"]
