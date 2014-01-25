@@ -8,7 +8,7 @@ $(document).ready(function() {
        $('#game').replaceWith(msg);
     });
     return false;
-  })
+  });
 
   $(document).on('click', '#dealer-hit input', function() {
     $.ajax({
@@ -18,7 +18,7 @@ $(document).ready(function() {
        $('#game').replaceWith(msg);
     });
     return false;
-  })
+  });
 
   $(document).on('click', '#player-stay input', function() {
     $.ajax({
@@ -28,19 +28,17 @@ $(document).ready(function() {
        $('#game').replaceWith(msg);
     });
     return false;
-  })
+  });
 
-  $(document).on('click', '#bet-button', function() {
+  $(document).on('click', '#game-page-bet input#bet-button', function() {
     $.ajax({
       type: 'POST',
-      url: '/game/page/bet'
-      data: {
-        bet: $(this).serialize();
-      }
+      url: '/game/page/bet',
+      data: $('#bet-amount').serialize()
     }).done(function(msg) {
        $('#game').replaceWith(msg);
     });
     return false;
-  })
+  });
 
-})
+});

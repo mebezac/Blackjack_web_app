@@ -88,7 +88,7 @@ post '/game/page/bet' do
 
   if session[:bet].to_i > session[:player_money].to_i || session[:bet].to_i < 1
     @error = "You have to bet between $1 and $#{session[:player_money]}"
-    erb :"game/bet"
+    erb :"game/bet", layout: false
   else
     erb :game, layout: false
   end 
@@ -96,6 +96,10 @@ end
 
 get '/game' do
   if_user('game')
+end
+
+get '/game/' do
+  if_user_ajax('game')
 end
 
 post '/game/player/hit' do
