@@ -23,6 +23,8 @@ img.card {
   border:thin solid black;
   -moz-border-radius: 5px;
   border-radius: 5px;
+  height: 117px;
+  width: : 80px;
 }
 
 .panel {
